@@ -23,6 +23,17 @@ Step 4:
 
 ## Configuration
 
+```bash
+node.name: node-1
+...
+
+network.host: 0.0.0.0
+...
+
+discovery.seed_hosts: ["127.0.0.1"]
+
+```
+
 ## Lauching
 
 Step 1:
