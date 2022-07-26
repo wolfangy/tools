@@ -35,7 +35,9 @@ network.host: 0.0.0.0
 ...
 
 discovery.seed_hosts: ["127.0.0.1"]
+...
 
+cluster.initial_master_nodes: ["node-1"]
 ```
 
 ## Lauching
