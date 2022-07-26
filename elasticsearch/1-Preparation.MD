@@ -52,5 +52,9 @@ Step 3:
 
 `sudo /bin/systemctl start elasticsearch.service`
 
+## Testing
 
+```bash
+curl -XGET 127.0.0.1:9200
+```
 
