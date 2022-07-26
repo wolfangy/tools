@@ -14,4 +14,4 @@ example to log:
  
  ## Grok Debug Tool:
  
- link:grokdebug.herokuapp.com/
+ [The Grok Debug Tool](grokdebug.herokuapp.com/)
