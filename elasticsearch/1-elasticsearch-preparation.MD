@@ -60,3 +60,16 @@ Step 3:
 curl -XGET 127.0.0.1:9200
 ```
 
+## Prepare tools
+
+```bash
+cd ~
+mkdir bin
+vim curj
+#input following:
+#!bin/bash
+#/usr/bin/curl -H "Content-Type: application/json" "$@"
+chmod a+x curj
+cd ~
+source .profile
+```
