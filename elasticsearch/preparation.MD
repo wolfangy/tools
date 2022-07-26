@@ -4,7 +4,7 @@
 
 Step 1:
 
-`wget -q0 - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -`
+`wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -`
 
 Step 2:
 
