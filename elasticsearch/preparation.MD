@@ -23,6 +23,10 @@ Step 4:
 
 ## Configuration
 
+GOTO:
+
+`sudo vim /etc/elasticsearch/elasticsearch.yml`
+
 ```bash
 node.name: node-1
 ...
