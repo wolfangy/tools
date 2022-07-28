@@ -234,3 +234,44 @@ the `terraform_remote_state` data source config the web-server cluster code to r
 
 <img src="https://user-images.githubusercontent.com/5281761/181630043-bdb7fadf-04e3-41ea-8456-e78085e6222d.png" height="600px">
 
+All the output variables are stored int the state file, and can be reached by:
+
+```tf
+data.terraform_remote_state.<NAME>.outputs.<ATTRIBUTE>
+```
+
+template _User Data_ script into `.../user-data.sh`:
+
+```bash
+#!/bin/bash
+
+cat > index.html <<EOF
+<h1>Hello, World</h1>
+<p>DB address: ${db_address}</p>
+<p>DB port: ${db_port}</p>
+EOF
+
+nohup busybox httpd -f -p ${server_port} &
+```
+
+use the `templatefile` function to combine:
+
+```tf
+resource "aws_launch_configuration" "example" {
+  image_id        = "ami-0fb653ca2d3203ac1"
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.instance.id]
+
+  # Render the User Data script as a template
+  user_data = templatefile("user-data.sh", {
+    server_port = var.server_port
+    db_address  = data.terraform_remote_state.db.outputs.address
+    db_port     = data.terraform_remote_state.db.outputs.port
+  })
+
+  # Required when using a launch configuration with an auto scaling group.
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+```
