@@ -13,9 +13,9 @@ What infrastructure it created in _terraform state file_: `terraform.tfstate`.
   - `terraform state`
 
 - The Terraform state should __NOT__ been shared in a version control.
-  - ::skull Manual error
-  - ::skull Locking
-  - ::skull Secrets
+  - :skull: Manual error
+  - :skull: Locking
+  - :skull: Secrets
 
 ## Shared Storage for State Files
 
