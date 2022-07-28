@@ -164,3 +164,19 @@ resource "aws_instance" "example" {
   instance_type = terraform.workspace == "default" ? "t2.medium" : "t2.micro"
 }
 ```
+
+Drawbacks & Error-Prone:
+
+- All the state files of workspaces are stored in the same backend;
+- Workspaces are not visible in code or terminal, until the `terraform workspace` command has been ran
+
+**NOT** suitable mechanism for isolating one environment from another.
+
+*** Isolation via File Layout
+
+- Put the Terraform configuration files for each environment into a separate folder
+- Config a different backend for each environment
+
+Recommendation: __Use separate folders for each env and for each component within that env.__
+
+![image](https://user-images.githubusercontent.com/5281761/181621553-aa0e7c2d-cc8b-4433-926e-cfcfb77ddfdc.png)
