@@ -179,4 +179,4 @@ Drawbacks & Error-Prone:
 
 Recommendation: __Use separate folders for each env and for each component within that env.__
 
-![image](https://user-images.githubusercontent.com/5281761/181621553-aa0e7c2d-cc8b-4433-926e-cfcfb77ddfdc.png=x600)
+![image](https://user-images.githubusercontent.com/5281761/181621553-aa0e7c2d-cc8b-4433-926e-cfcfb77ddfdc.png =x600)
