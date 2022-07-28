@@ -180,3 +180,57 @@ Drawbacks & Error-Prone:
 Recommendation: __Use separate folders for each env and for each component within that env.__
 
 <img src="https://user-images.githubusercontent.com/5281761/181621553-aa0e7c2d-cc8b-4433-926e-cfcfb77ddfdc.png" height="600px">
+
+Top level envs:
+
+- stage: pre-production workloads
+- prod: production workloads
+- mgmt: DevOps tooling
+- global: resources that are used across all envs
+
+Within each env, the components:
+
+- vpc: network topology
+- services: apps
+- data-storage: data stores
+
+Within each component:
+
+- variables.tf: input variables
+- outputs.tf: output variables
+- main.tf
+
+Things may go beyond the minimum convention:
+
+- dependencies.tf: all data sources for external things
+- providers.tf: provider related block
+- main-xxx.tf: If `main.tf` getting too long, break it down:
+  - group the resource in logical way: `main-iam.tf` and `main-s3.tf`
+ 
+ :exclamation: __When moving the folder, make sure don't miss the _.terraform_ folder__
+ 
+ Drawbacks:
+ 
+ - Multiple folders: using __Terragrunt__ with `run-all` command
+ - Copy/paste
+ - Resource Dependencies: using `dependency` blocks in __Terragrunt__
+
+
+## The terraform_remote_state Data Source
+
+```tf
+data "terraform_remote_state" "db" {
+  backend = "s3"
+
+  config = {
+    bucket = "(YOUR_BUCKET_NAME)"
+    key    = "stage/data-stores/mysql/terraform.tfstate"
+    region = "us-east-2"
+  }
+}
+```
+
+the `terraform_remote_state` data source config the web-server cluster code to read the state file from the same S3 bucket and folder
+
+<img src="https://user-images.githubusercontent.com/5281761/181630043-bdb7fadf-04e3-41ea-8456-e78085e6222d.png" height="600px">
+
