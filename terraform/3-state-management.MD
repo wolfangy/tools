@@ -125,3 +125,42 @@ output "dynamodb_table_name" {
   value       = aws_dynamodb_table.terraform_locks.name
   description = 
 ```
+
+## Limitations
+
+1. Two steps process:
+
+  - Write Terraform code to create bucked & DynamoDB and deploy the code with local backend
+  - Add a remote backend config to it, then use the newly created S3 bucket and DynamoDB table
+ 
+ 2. The `backend` block does not allow you to use any variables or references: all manually copy&paste or _partial configurations_: by extract the repeated backend args into a separate file `backend.hcl` and then `terraform init -backend-config=backend.hcl`
+
+## Isolating State Files
+
+Instead of defining all your env in one single set of Terraform configurations, you want to define each env in a separate set of configurations.
+
+- Isolation via workspaces
+- Isloation via file layout
+
+### Isolation via workspaces
+
+To create a new workspace or switch between workspaces, use `terraform workspace` commands.
+
+To show current running workspace `terraform workspace show`
+
+To create a new workspace: `terraform workspace new WORKSPACE_NAME`
+
+To list all workspaces: `terraform workspace list`
+
+To select a worksapce: `terraform workspace select WORKSPaCE_NAME`
+
+**Switching to a different workspace is equivalent to chaning the path where your state file is stored**
+
+Change how the module behaves based on the workspace:
+
+```tf
+resource "aws_instance" "example" {
+  ami           = "ami-0fb653ca2d3203ac1"
+  instance_type = terraform.workspace == "default" ? "t2.medium" : "t2.micro"
+}
+```
