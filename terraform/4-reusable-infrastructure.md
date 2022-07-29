@@ -32,4 +32,35 @@ module "<NAME>" {
 :hammer: Add __configurable inputs__ to the module so that it can behave differently in different env.
 
 
+## Module inputs
+
+- Create _variables.tf_ inside the module and add variables
+
+```tf
+variable "<VARIABLE_NAME>" {
+  description = "<DESCRIPTION>"
+  type        = string
+}
+```
+
+- use `var.<VARIABLE_NAME>` instead of hardcoded names.
+
+
+## Module Locals
+
+The variables in your module to do some intermediary calculation.
+
+Define the _local values_ in a _local_ block:
+
+```tf
+locals {
+  http_port    = 80
+  any_port     = 0
+  any_protocol = "-1"
+  tcp_protocol = "tcp"
+  all_ips      = ["0.0.0.0/0"]
+}
+```
+
+to read the value of a local, you need to use a _local_ reference: `local.<Name>`
 
