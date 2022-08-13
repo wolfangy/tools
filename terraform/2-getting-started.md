@@ -28,8 +28,8 @@ resource "<PROVIDER>_<TYPE>" "<NAME>" {
 
 :exclamation: terraform can show you a diff between what's currently deployed and what's in your Terraform code.
 
-### Deploy a web-server:
- 
+### Deploy a web-server
+
 Pass a shell script or cloud-init directive to _User Data_, EC2 instance will execute it during the first boot.
 
 ```tf
@@ -53,4 +53,3 @@ resource "aws_instance" "example" {
 
 - the `<<-EOF` and `EOF` are Terraform's heredoc syntax, allows you to create __multiple__ strings without having to insert `/n`
 - The `user_data_replace_on_change` been set to `true`, when the _user_data_ parapmeter changed, terraform will terminate the original instance and launch a new one.
-
